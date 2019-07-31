@@ -17,14 +17,17 @@ class UrlsController < ApplicationController
             original = url_params[:original]
         end
 
-        url = Url.new(original: original)
-
-        if url.save
-            url.shortened = Url.shorten(url)
-            url.save
-            render json: url
+        if Url.find_by(original: original)
+            render json: Url.find_by(original: original)
         else
-            render json: {error: "'#{url_params[:original]}' is not a valid url. "}, status: 400
+            url = Url.new(original: original)
+            if url.save
+                url.shortened = Url.shorten(url)
+                url.save
+                render json: url
+            else
+                render json: {error: "'#{url_params[:original]}' is not a valid url. "}, status: 400
+            end
         end
     end
 
