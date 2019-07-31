@@ -6,27 +6,32 @@ class UrlsController < ApplicationController
     end
 
     def show
-        url = Url.find_by(shortened: params[:shortened])
-        # byebug
+        url = Url.find_by(shortened: url_params[:shortened])
         redirect_to url.original
     end
 
     def create
-        url = Url.new(url_params)
+        if !url_params[:original].include?("http")
+            original = "http://#{url_params[:original]}"
+        else
+            original = url_params[:original]
+        end
+
+        url = Url.new(original: original)
 
         if url.save
             url.shortened = Url.shorten(url)
             url.save
             render json: url
         else
-            render json: {error: "'#{url.original}' is not a valid url. "}, status: 400
+            render json: {error: "'#{url_params[:original]}' is not a valid url. "}, status: 400
         end
     end
 
     private
 
     def url_params
-        params.permit(:id, :original, :shortened)
+        params.permit(:original, :shortened)
     end
 
 end
