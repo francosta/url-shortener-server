@@ -13,6 +13,7 @@ class UrlsController < ApplicationController
 
     def create
         url = Url.new(url_params)
+
         if url.save
             url.shortened = Url.shorten(url)
             url.save
