@@ -19,7 +19,7 @@ class UrlsController < ApplicationController
             url.save
             render json: url
         else
-            render json: {error: 'Url could not be created'}, status: 400
+            render json: {error: "'#{url.original}' is not a valid url. "}, status: 400
         end
     end
 
