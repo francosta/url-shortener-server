@@ -8,7 +8,7 @@ Any user can load the app and input the url. The app will generate a unique shor
 ## Server and MVC
 
 This repository contains all files that make up the server-side of the app, which was built using Ruby on Rails.
-There is only one model, `Url` for which a REST API was set up. The model has controllers for `index`, `show` and `create`.
+There is only one model, `Url` for which a REST API was set up. The main endpoint for the API is `http://localhost:3000/urls` The model has controllers for `index`, `show` and `create`.
 
 ## Client
 
