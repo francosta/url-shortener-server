@@ -6,8 +6,8 @@ class UrlsController < ApplicationController
     end
 
     def show
-        byebug
         url = Url.find_by(shortened: params[:shortened])
+        # byebug
         redirect_to url.original
     end
 
